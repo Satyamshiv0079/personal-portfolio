@@ -505,12 +505,8 @@ section {
 .project-details p {
     color: var(--text-secondary);
     font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    height: 60px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
 }
 
 .project-links {
