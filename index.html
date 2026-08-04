@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satyam Shiv | Backend & Full-Stack Developer Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Interactive Background Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Header / Frosted Glass Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="gradient-text">Satyam</span>.dev
+        </div>
+        <nav class="nav-links">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#certifications" class="nav-link">Certifications</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="badge">Available for Software Engineer Roles</div>
+                <h1 class="hero-title">
+                    Hi, I'm <span class="gradient-text">Satyam Shiv</span>
+                </h1>
+                <h2 class="hero-subtitle">
+                    I am a <span class="typing-text" id="role-text"></span>
+                </h2>
+                <p class="hero-description">
+                    Backend-focused Software Engineer and B.Tech graduate specializing in scalable backend systems, REST APIs, and Generative AI integrations.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-secondary">View My Work</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="circle-glow"></div>
+                <div class="hero-card">
+                    <div class="card-header">
+                        <span class="card-dot red"></span>
+                        <span class="card-dot yellow"></span>
+                        <span class="card-dot green"></span>
+                    </div>
+                    <div class="card-body">
+                        <pre><code><span class="keyword">const</span> softwareEngineer = {
+  name: <span class="string">'Satyam Shiv'</span>,
+  focus: <span class="string">'Backend & GenAI'</span>,
+  languages: [<span class="string">'Java'</span>, <span class="string">'Python'</span>, <span class="string">'SQL'</span>],
+  leetcodeSolved: <span class="number">150</span>,
+  immediateAvailable: <span class="keyword">true</span>
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section scroll-reveal">
+            <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+            <div class="about-grid">
+                <div class="about-info">
+                    <p class="about-text">
+                        I am a backend-focused Software Engineer with expertise in building scalable backend systems, designing robust REST APIs, and integrating cutting-edge Generative AI models (such as Groq and Gemini) into full-stack applications.
+                    </p>
+                    <p class="about-text">
+                        Backed by a strong foundation in Data Structures and Algorithms with over 150+ solved challenges on LeetCode, I have a proven track record of delivering production-ready, clean, and containerized applications.
+                    </p>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <h3>150+</h3>
+                            <p>LeetCode Solved</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>3+</h3>
+                            <p>GenAI Projects</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>2026</h3>
+                            <p>B.Tech CSE Graduate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section scroll-reveal">
+            <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages & Backend</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Java / Python / SQL</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Spring Boot / Flask</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Node.js / Express / REST APIs</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Databases & Cloud / Tools</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>PostgreSQL / Supabase / SQLite / MySQL</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Generative AI (Gemini, Groq Llama, FSM)</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>AWS / Docker / Git / Vercel / Render</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education Section -->
+        <section id="experience" class="experience-section scroll-reveal">
+            <h2 class="section-title">Experience & <span class="gradient-text">Education</span></h2>
+            <div class="timeline-container">
+                
+                <!-- Internships -->
+                <div class="timeline-block">
+                    <div class="timeline-header">
+                        <i class="fa-solid fa-briefcase timeline-icon"></i>
+                        <h3>Virtual Internships</h3>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2024</span>
+                        <h4>Google Android Developer Virtual Intern</h4>
+                        <p class="timeline-org">EduSkills Academy</p>
+                        <ul>
+                            <li>Developed Android applications using Java and XML following Material Design principles.</li>
+                            <li>Implemented Activities, Intents, UI layouts, and Android lifecycle management.</li>
+                            <li>Improved application responsiveness and user interaction.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2024</span>
+                        <h4>Microchip Embedded Systems Virtual Intern</h4>
+                        <p class="timeline-org">EduSkills Academy</p>
+                        <ul>
+                            <li>Worked with Embedded C programming and PIC microcontrollers.</li>
+                            <li>Built GPIO-based embedded applications with real-time data acquisition.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="timeline-block">
+                    <div class="timeline-header">
+                        <i class="fa-solid fa-graduation-cap timeline-icon"></i>
+                        <h3>Education</h3>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2023 – 2026</span>
+                        <h4>B.Tech in Computer Science and Engineering</h4>
+                        <p class="timeline-org">Galgotias University</p>
+                        <p class="timeline-desc">Relevant Coursework: Algorithms, Database Management Systems (DBMS), Web Technologies.</p>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2019 – 2022</span>
+                        <h4>Diploma in Mechanical Engineering</h4>
+                        <p class="timeline-org">LNCT&S</p>
+                        <p class="timeline-desc">Academic Performance: 82.1%</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section scroll-reveal">
+            <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+            
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="backend">Backend & API</button>
+                <button class="filter-btn" data-filter="ai">AI / GenAI</button>
+                <button class="filter-btn" data-filter="fullstack">Fullstack</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image-placeholder">
+                        <i class="fa-solid fa-bag-shopping project-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-tag">Fullstack / Flask</span>
+                        <h3>LUXE – AI Luxury E-Commerce</h3>
+                        <p>Luxury e-commerce featuring dynamic responsive frontend, Flask backend, Socket.IO real-time channels, JWT auth, and Supabase RLS.</p>
+                        <ul class="project-bullets">
+                            <li>AI shopping concierge powered by Groq API for natural language product help.</li>
+                            <li>Automated PDF invoice generation with ReportLab.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/Satyamshiv0079/LUXE-Store" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" data-category="ai">
+                    <div class="project-image-placeholder">
+                        <i class="fa-solid fa-robot project-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-tag">AI / NLP</span>
+                        <h3>NovaMind – Support Chatbot</h3>
+                        <p>Hybrid chatbot merging deterministic workflows with Groq Llama for open-domain conversations, built with SQLite and Docker.</p>
+                        <ul class="project-bullets">
+                            <li>Implemented TF-IDF intent classifier and finite-state-machine dialog manager.</li>
+                            <li>Containerized with Docker; full PyTest test suite.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/Satyamshiv0079/ai-chatbot" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" data-category="backend">
+                    <div class="project-image-placeholder">
+                        <i class="fa-solid fa-calendar-check project-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-tag">Backend / Java API</span>
+                        <h3>45-Day Java Backend Study Tracker</h3>
+                        <p>Full-stack educational roadmap webapp explaining Spring Boot, SQL, DSA, System Design, and analytics dashboards using Recharts.</p>
+                        <ul class="project-bullets">
+                            <li>AI Mentor powered by Gemini API to explain concepts and review code.</li>
+                            <li>Productivity tracker with integrated Pomodoro tool.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/Satyamshiv0079/java-study-tracker" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="certifications-section scroll-reveal">
+            <h2 class="section-title">Certifications & <span class="gradient-text">Achievements</span></h2>
+            <div class="certifications-grid">
+                
+                <div class="certifications-card">
+                    <i class="fa-solid fa-award certification-icon"></i>
+                    <h4>8 Bit Microcontrollers</h4>
+                    <p>Architecture of the PIC16</p>
+                </div>
+
+                <div class="certifications-card">
+                    <i class="fa-solid fa-brain certification-icon"></i>
+                    <h4>Intro to Generative AI</h4>
+                    <p>Core Concepts Specialization</p>
+                </div>
+
+                <div class="certifications-card">
+                    <i class="fa-solid fa-shield-halved certification-icon"></i>
+                    <h4>Deloitte Cyber Job Simulation</h4>
+                    <p>Deloitte Australia</p>
+                </div>
+
+                <div class="certifications-card">
+                    <i class="fa-solid fa-network-wired certification-icon"></i>
+                    <h4>CCNA: Introduction to Networks</h4>
+                    <p>Cisco Systems</p>
+                </div>
+
+                <div class="certifications-card">
+                    <i class="fa-solid fa-chart-pie certification-icon"></i>
+                    <h4>Deloitte Data Analytics Job Simulation</h4>
+                    <p>Deloitte Australia</p>
+                </div>
+
+                <div class="certifications-card">
+                    <i class="fa-solid fa-trophy certification-icon"></i>
+                    <h4>LeetCode Competitive Programming</h4>
+                    <p>Solved 150+ DSA Problems, active practice in Graphs, Trees, and DP.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section scroll-reveal">
+            <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Have an exciting software development or AI project to build? Or looking for a backend-focused engineer to join your team? Feel free to reach out.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Satyam.shiv0079@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Delhi, India</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/Satyamshiv0079" target="_blank" class="social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/satyamshiv0079/" target="_blank" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://leetcode.com/u/Satyamshiv0079/" target="_blank" class="social-link" title="LeetCode"><i class="fa-solid fa-code"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required placeholder="Tell me about your project or opportunity..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    <div id="form-success" class="form-status success">Message sent successfully!</div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Satyam Shiv. Designed with passion.</p>
+    </footer>
+
+    <!-- NovaMind Floating Chatbot Widget -->
+    <div class="chatbot-widget-container">
+        <!-- Floating Toggle Button -->
+        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn" title="Chat with NovaMind AI">
+            <i class="fa-solid fa-robot"></i>
+            <span class="pulse-ring"></span>
+        </button>
+
+        <!-- Floating Chat Window (Local Chat Widget) -->
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chatbot-window-header">
+                <div class="chatbot-header-info">
+                    <span class="chatbot-status-dot"></span>
+                    <h4>NovaMind AI Assistant</h4>
+                </div>
+                <button id="chatbot-close-btn" class="chatbot-close-btn">&times;</button>
+            </div>
+            <div class="chatbot-body" id="chatbot-body">
+                <div class="chat-message bot">
+                    Hi! I'm NovaMind. Ask me anything about Satyam's projects, experience, education, or skills!
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbot-input" placeholder="Ask me anything...">
+                <button id="chatbot-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Sheet -->
+    <script src="script.js"></script>
+</body>
+</html>
