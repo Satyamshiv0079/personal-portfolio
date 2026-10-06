@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = userMsg.toLowerCase();
         
         if (query.includes('project') || query.includes('work') || query.includes('luxe') || query.includes('novamind') || query.includes('tracker')) {
-            return "Satyam has built three key projects:\n1. LUXE: An AI-Powered Luxury E-Commerce platform using Flask, Socket.IO, Groq API, and Supabase.\n2. NovaMind: A Hybrid AI Support Chatbot using React, Flask, Groq Llama, SQLite, and Docker.\n3. 45-Day Java Study Tracker: A full-stack Spring Boot education roadmap using the Gemini API.";
+            return "Satyam has built three key projects:\n1. LUXE: An AI-Powered Luxury E-Commerce platform using Flask, Socket.IO, Groq API, and Supabase.\n2. NovaMind: A Spatial 3D AI Chatbot built with React, Flask, Groq LLMs (Llama 3.3, Mixtral, Gemma), Supabase PostgreSQL, and JWT authentication.\n3. 45-Day Java Study Tracker: A full-stack Spring Boot education roadmap using the Gemini API.";
         }
         if (query.includes('skill') || query.includes('tech') || query.includes('language') || query.includes('frontend') || query.includes('backend') || query.includes('database')) {
             return "Satyam's technical skills include:\n• Languages: Java, Python, JavaScript, SQL\n• Frontend: React.js, Next.js, HTML5, CSS3, Tailwind CSS\n• Backend: Spring Boot, Flask, Node.js, Express.js\n• Databases: PostgreSQL, Supabase, SQLite, MySQL\n• AI: Gemini API, Groq Llama, TF-IDF\n• Tools: Docker, Git, AWS, Vercel, Render";
