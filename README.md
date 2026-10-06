@@ -1,32 +1,109 @@
-# Satyam Shiv | Personal Portfolio
+# Satyam Shiv — Personal Portfolio
 
-A sleek, responsive, and highly interactive personal portfolio website designed to showcase software engineering experience, projects, internships, and certifications.
+Personal portfolio website for Satyam Shiv, a Backend-focused Software Engineer and B.Tech CSE student.
 
-🔗 **Live Demo**: [https://satyamshiv0079.github.io/personal-portfolio/](https://satyamshiv0079.github.io/personal-portfolio/)
+## Live Website
 
-## 🚀 Features
+**[satyamshiv0079.github.io/personal-portfolio](https://satyamshiv0079.github.io/personal-portfolio/)**
 
-- **Dynamic Interactive Particle Background**: A mathematical particle system built using HTML5 Canvas that reacts smoothly to mouse movements and hover.
-- **NovaMind AI Assistant (Local Integration)**: A custom, portfolio-specific conversational assistant that details Satyam's background, projects, skills, education, and credentials locally in real-time.
-- **Glassmorphism Theme**: Premium futuristic visual style with frosted-glass card containers, glow effects, gradients, and custom scrollbars.
-- **Responsive Layout**: Works seamlessly across desktops, tablets, and smartphones, with a customized touch-friendly mobile navigation menu.
-- **Category Project Filtering**: Dynamic project filters allowing visitors to sort between AI/GenAI, Backend, and Full-Stack work.
-- **Scroll Reveal Animations**: Built using JS Intersection Observers to trigger styling fades and progress bars as they enter the screen viewport.
+## Overview
 
-## 🛠️ Tech Stack
+A static, single-page portfolio built with HTML, CSS, and vanilla JavaScript — no frameworks or build tools required. It presents Satyam's projects, technical skills, education, virtual internships, certifications, and contact information.
 
-- **Frontend**: HTML5, Vanilla CSS3 (with Custom Variables & Flexbox/Grid), ES6+ JavaScript.
-- **Icons & Fonts**: Font Awesome, Google Fonts (Outfit & Plus Jakarta Sans).
-- **Hosting**: GitHub Pages / Vercel.
+## Features
 
-## 📁 Repository Structure
+- **Dark glassmorphism design** — frosted glass cards with purple/blue accent system
+- **Interactive particle canvas** — WebGL-free, pauses when tab is hidden, reduced on mobile
+- **Project filter** — filter by Full-Stack, AI/GenAI, or Backend
+- **Tag-based skill section** — no fabricated percentage bars
+- **Separated Certifications and Achievements** — honest, clearly labelled sections
+- **Virtual Internships clearly labelled** — not presented as conventional employment
+- **Portfolio Assistant** — rule-based keyword-matching Q&A widget (not an LLM)
+- **Honest contact form** — opens the user's email client via `mailto:`, no fake submission
+- **Accessibility** — semantic HTML, ARIA labels, keyboard navigation, `focus-visible`, reduced-motion support
+- **Responsive layout** — tested from 320px to 1920px, zero horizontal overflow
+- **SEO metadata** — title, description, Open Graph, Twitter Card, canonical URL
 
-```text
-├── index.html   # Main structure & SEO metadata
-├── style.css    # Premium glassmorphic styles and media queries
-├── script.js    # Canvas math, typing effect, scroll triggers & NovaMind assistant logic
-└── README.md    # Documentation
+## Tech Stack
+
+| Layer | Tech |
+|---|---|
+| HTML | Semantic HTML5 |
+| CSS | Custom properties, CSS Grid, Flexbox, glassmorphism |
+| JavaScript | Vanilla ES6+ (IIFE, no dependencies) |
+| Fonts | Google Fonts — Outfit, Plus Jakarta Sans |
+| Icons | Font Awesome 6 |
+| Hosting | GitHub Pages |
+
+## Projects Showcased
+
+| Project | Stack | Live |
+|---|---|---|
+| [LUXE — E-Commerce + AI Concierge](https://github.com/Satyamshiv0079/LUXE-Store) | Flask, React, Supabase, Groq API, Socket.IO | [luxe-store-nine.vercel.app](https://luxe-store-nine.vercel.app/) |
+| [NovaMind — AI Chatbot](https://github.com/Satyamshiv0079/ai-chatbot) | Flask, React, PostgreSQL, Groq LLM, Docker | [Live Demo](https://ai-chatbot-6njs1ys87-satyamshiv0079s-projects.vercel.app) |
+| [Java Study Tracker](https://github.com/Satyamshiv0079/java-study-tracker) | React, Gemini API, Recharts | [java-study-tracker-omega.vercel.app](https://java-study-tracker-omega.vercel.app/) |
+
+## Accessibility
+
+- Semantic elements: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`
+- Correct heading hierarchy (h1 → h4)
+- ARIA labels on interactive elements: buttons, dialog, live regions
+- Visible `:focus-visible` keyboard focus rings
+- `@media (prefers-reduced-motion: reduce)` — disables animations and particle canvas
+- Screen-reader-only `.sr-only` class for form labels
+
+## Performance
+
+- Zero JavaScript dependencies (no libraries, no bundler)
+- Particle canvas pauses on `document.visibilityState !== 'visible'`
+- Particle count: 80 (desktop) → 40 (mobile) → 0 (reduced-motion)
+- Google Fonts loaded with `<link rel="preconnect">`
+- Font Awesome loaded from CDN
+
+## Project Structure
+
+```
+portfolio/
+├── index.html      # Single-page HTML — all sections
+├── style.css       # All styles — variables, layout, components, responsive
+├── script.js       # Particles, typing effect, navbar, scroll-reveal,
+│                   # project filter, contact form (mailto), chatbot
+└── README.md       # This file
 ```
 
----
-Designed with passion by [Satyam Shiv](https://github.com/Satyamshiv0079).
+## Local Development
+
+No build tools required.
+
+```bash
+# Clone the repository
+git clone https://github.com/Satyamshiv0079/personal-portfolio.git
+
+# Open in browser
+# Option 1: directly open index.html in your browser
+# Option 2: use a simple local server to avoid CORS issues with fonts
+npx serve .
+# or
+python -m http.server 8080
+```
+
+## Deployment
+
+The site is deployed via **GitHub Pages** from the `main` branch root.
+
+To deploy updates:
+
+```bash
+git add .
+git commit -m "your message"
+git push origin main
+```
+
+GitHub Pages rebuilds automatically on push.
+
+## Future Improvements
+
+- Add a real profile photo to the hero section
+- Connect the contact form to a real backend (Formspree or EmailJS)
+- Add project screenshot images for each project card
+- Add a downloadable resume PDF once ready

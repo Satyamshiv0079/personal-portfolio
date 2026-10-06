@@ -3,76 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satyam Shiv | Backend & Full-Stack Developer Portfolio</title>
-    <meta name="description" content="Satyam Shiv - Backend-focused Software Engineer specializing in scalable backend architectures, REST APIs, and Generative AI integrations.">
+    <title>Satyam Shiv | Software Engineer — Backend & Full-Stack</title>
+    <meta name="description" content="Satyam Shiv — Backend-focused Software Engineer. B.Tech CSE, Galgotias University 2026. Projects in Java, Python, Flask, React, and Generative AI.">
     <meta name="author" content="Satyam Shiv">
+    <link rel="canonical" href="https://satyamshiv0079.github.io/personal-portfolio/">
 
-    <!-- Open Graph / LinkedIn / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://satyamshiv0079.github.io/personal-portfolio/">
-    <meta property="og:title" content="Satyam Shiv | Backend & Full-Stack Developer Portfolio">
-    <meta property="og:description" content="Backend-focused Software Engineer with expertise in Java, Python, REST APIs, and GenAI. Explore projects, skills, and experience.">
+    <meta property="og:title" content="Satyam Shiv | Software Engineer — Backend & Full-Stack">
+    <meta property="og:description" content="Backend-focused Software Engineer. Java, Python, Flask, React, PostgreSQL, Groq API. View projects and experience.">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:url" content="https://satyamshiv0079.github.io/personal-portfolio/">
-    <meta name="twitter:title" content="Satyam Shiv | Backend & Full-Stack Developer Portfolio">
-    <meta name="twitter:description" content="Backend-focused Software Engineer with expertise in Java, Python, REST APIs, and GenAI. Explore projects, skills, and experience.">
+    <meta name="twitter:title" content="Satyam Shiv | Software Engineer">
+    <meta name="twitter:description" content="Backend-focused Software Engineer. Java, Python, Flask, React, PostgreSQL, Groq API.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Main Style Sheet -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Interactive Background Canvas -->
-    <canvas id="particleCanvas"></canvas>
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
 
-    <!-- Header / Frosted Glass Navbar -->
-    <header class="navbar">
-        <div class="logo">
+    <!-- Navbar -->
+    <header class="navbar" role="banner">
+        <a href="#home" class="logo" aria-label="Satyam Shiv — Home">
             <span class="gradient-text">Satyam</span>.dev
-        </div>
-        <nav class="nav-links">
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#experience" class="nav-link">Experience</a>
-            <a href="#projects" class="nav-link">Projects</a>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
+            <a href="#home"           class="nav-link active" aria-current="page">Home</a>
+            <a href="#about"          class="nav-link">About</a>
+            <a href="#skills"         class="nav-link">Skills</a>
+            <a href="#experience"     class="nav-link">Experience</a>
+            <a href="#projects"       class="nav-link">Projects</a>
             <a href="#certifications" class="nav-link">Certifications</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#contact"        class="nav-link">Contact</a>
         </nav>
-        <div class="menu-toggle" id="mobile-menu">
+        <button class="menu-toggle" id="mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
-        </div>
+        </button>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
+    <main id="main-content">
+
+        <!-- ========== HERO ========== -->
+        <section id="home" class="hero-section" aria-labelledby="hero-heading">
             <div class="hero-content">
-                <div class="badge">Available for Software Engineer Roles</div>
-                <h1 class="hero-title">
+                <div class="badge">Open to Software Engineer Roles</div>
+                <h1 class="hero-title" id="hero-heading">
                     Hi, I'm <span class="gradient-text">Satyam Shiv</span>
                 </h1>
                 <h2 class="hero-subtitle">
-                    I am a <span class="typing-text" id="role-text"></span>
+                    <span class="typing-text" id="role-text" aria-label="Backend Engineer"></span>
                 </h2>
                 <p class="hero-description">
-                    Backend-focused Software Engineer and B.Tech graduate specializing in scalable backend systems, REST APIs, and Generative AI integrations.
+                    Backend-focused Software Engineer and B.Tech CSE graduate. I build REST APIs, full-stack web applications, and Generative AI integrations using Java, Python, Flask, and React.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="https://github.com/Satyamshiv0079" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/satyamshiv0079/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
+                    </a>
                 </div>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual" aria-hidden="true">
                 <div class="circle-glow"></div>
                 <div class="hero-card">
                     <div class="card-header">
@@ -81,355 +86,468 @@
                         <span class="card-dot green"></span>
                     </div>
                     <div class="card-body">
-                        <pre><code><span class="keyword">const</span> softwareEngineer = {
+                        <pre><code><span class="keyword">const</span> engineer = {
   name: <span class="string">'Satyam Shiv'</span>,
-  focus: <span class="string">'Backend & GenAI'</span>,
-  languages: [<span class="string">'Java'</span>, <span class="string">'Python'</span>, <span class="string">'SQL'</span>],
-  leetcodeSolved: <span class="number">150</span>,
-  immediateAvailable: <span class="keyword">true</span>
+  focus: <span class="string">'Backend &amp; GenAI'</span>,
+  stack: [<span class="string">'Java'</span>, <span class="string">'Python'</span>, <span class="string">'Flask'</span>],
+  leetcode: <span class="number">150</span><span class="string">+</span> problems,
+  status: <span class="string">'open to work'</span>
 };</code></pre>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about-section scroll-reveal">
-            <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+        <!-- ========== ABOUT ========== -->
+        <section id="about" class="about-section scroll-reveal" aria-labelledby="about-heading">
+            <h2 class="section-title" id="about-heading">About <span class="gradient-text">Me</span></h2>
             <div class="about-grid">
                 <div class="about-info">
                     <p class="about-text">
-                        I am a backend-focused Software Engineer with expertise in building scalable backend systems, designing robust REST APIs, and integrating cutting-edge Generative AI models (such as Groq and Gemini) into full-stack applications.
+                        I am a Software Engineer pursuing a B.Tech in Computer Science at Galgotias University (2023–2026). My primary focus is backend engineering — building REST APIs, working with relational databases, and integrating LLM APIs (Groq, Gemini) into practical applications.
                     </p>
                     <p class="about-text">
-                        Backed by a strong foundation in Data Structures and Algorithms with over 150+ solved challenges on LeetCode, I have a proven track record of delivering production-ready, clean, and containerized applications.
+                        I have worked across the full stack, shipping projects with Flask and React frontends, Supabase PostgreSQL databases, JWT authentication, and Docker containerisation. I am actively practising Data Structures and Algorithms on LeetCode.
                     </p>
                     <div class="stats-container">
                         <div class="stat-card">
                             <h3>150+</h3>
-                            <p>LeetCode Solved</p>
+                            <p>LeetCode Problems</p>
                         </div>
                         <div class="stat-card">
-                            <h3>3+</h3>
-                            <p>GenAI Projects</p>
+                            <h3>3</h3>
+                            <p>Shipped Projects</p>
                         </div>
                         <div class="stat-card">
                             <h3>2026</h3>
-                            <p>B.Tech CSE Graduate</p>
+                            <p>B.Tech Graduation</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills-section scroll-reveal">
-            <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Languages & Backend</h3>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Java / Python / SQL</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Spring Boot / Flask</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Node.js / Express / REST APIs</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+        <!-- ========== SKILLS ========== -->
+        <section id="skills" class="skills-section scroll-reveal" aria-labelledby="skills-heading">
+            <h2 class="section-title" id="skills-heading">Technical <span class="gradient-text">Skills</span></h2>
+            <div class="skills-tag-grid">
+
+                <div class="skill-group">
+                    <h3 class="skill-group-label">Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Embedded C</span>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3>Databases & Cloud / Tools</h3>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>PostgreSQL / Supabase / SQLite / MySQL</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Generative AI (Gemini, Groq Llama, FSM)</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>AWS / Docker / Git / Vercel / Render</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                <div class="skill-group">
+                    <h3 class="skill-group-label">Backend</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">REST APIs</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express.js</span>
+                        <span class="skill-tag">JWT Auth</span>
                     </div>
                 </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-label">Databases</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Supabase</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">SQLAlchemy</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-label">Frontend</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-label">AI / APIs</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Groq API</span>
+                        <span class="skill-tag">Gemini API</span>
+                        <span class="skill-tag">LLM Integration</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-label">Cloud &amp; Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">Vercel</span>
+                        <span class="skill-tag">Render</span>
+                        <span class="skill-tag">AWS (basic)</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Experience & Education Section -->
-        <section id="experience" class="experience-section scroll-reveal">
-            <h2 class="section-title">Experience & <span class="gradient-text">Education</span></h2>
+        <!-- ========== EXPERIENCE & EDUCATION ========== -->
+        <section id="experience" class="experience-section scroll-reveal" aria-labelledby="experience-heading">
+            <h2 class="section-title" id="experience-heading">Experience &amp; <span class="gradient-text">Education</span></h2>
             <div class="timeline-container">
-                
-                <!-- Internships -->
+
                 <div class="timeline-block">
                     <div class="timeline-header">
-                        <i class="fa-solid fa-briefcase timeline-icon"></i>
+                        <i class="fa-solid fa-briefcase timeline-icon" aria-hidden="true"></i>
                         <h3>Virtual Internships</h3>
                     </div>
+
                     <div class="timeline-card">
                         <span class="timeline-date">2024</span>
-                        <h4>Google Android Developer Virtual Intern</h4>
-                        <p class="timeline-org">EduSkills Academy</p>
+                        <span class="timeline-type-badge">Virtual Internship</span>
+                        <h4>Google Android Developer</h4>
+                        <p class="timeline-org">EduSkills Academy · via AICTE</p>
                         <ul>
-                            <li>Developed Android applications using Java and XML following Material Design principles.</li>
-                            <li>Implemented Activities, Intents, UI layouts, and Android lifecycle management.</li>
-                            <li>Improved application responsiveness and user interaction.</li>
+                            <li>Built Android applications using Java and XML following Material Design guidelines.</li>
+                            <li>Implemented Activities, Intents, and Android lifecycle management.</li>
                         </ul>
                     </div>
+
                     <div class="timeline-card">
                         <span class="timeline-date">2024</span>
-                        <h4>Microchip Embedded Systems Virtual Intern</h4>
-                        <p class="timeline-org">EduSkills Academy</p>
+                        <span class="timeline-type-badge">Virtual Internship</span>
+                        <h4>Microchip Embedded Systems</h4>
+                        <p class="timeline-org">EduSkills Academy · via AICTE</p>
                         <ul>
-                            <li>Worked with Embedded C programming and PIC microcontrollers.</li>
-                            <li>Built GPIO-based embedded applications with real-time data acquisition.</li>
+                            <li>Programmed PIC microcontrollers using Embedded C.</li>
+                            <li>Built GPIO-based applications and studied real-time data acquisition.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Education -->
                 <div class="timeline-block">
                     <div class="timeline-header">
-                        <i class="fa-solid fa-graduation-cap timeline-icon"></i>
+                        <i class="fa-solid fa-graduation-cap timeline-icon" aria-hidden="true"></i>
                         <h3>Education</h3>
                     </div>
+
                     <div class="timeline-card">
                         <span class="timeline-date">2023 – 2026</span>
-                        <h4>B.Tech in Computer Science and Engineering</h4>
-                        <p class="timeline-org">Galgotias University</p>
-                        <p class="timeline-desc">Relevant Coursework: Algorithms, Database Management Systems (DBMS), Web Technologies.</p>
+                        <h4>B.Tech — Computer Science &amp; Engineering</h4>
+                        <p class="timeline-org">Galgotias University, Greater Noida</p>
+                        <p class="timeline-desc">Coursework: Algorithms, DBMS, Operating Systems, Web Technologies.</p>
                     </div>
+
                     <div class="timeline-card">
                         <span class="timeline-date">2019 – 2022</span>
-                        <h4>Diploma in Mechanical Engineering</h4>
-                        <p class="timeline-org">LNCT&S</p>
-                        <p class="timeline-desc">Academic Performance: 82.1%</p>
+                        <h4>Diploma — Mechanical Engineering</h4>
+                        <p class="timeline-org">LNCT&amp;S</p>
+                        <p class="timeline-desc">Score: 82.1%</p>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="projects-section scroll-reveal">
-            <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
-            
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="backend">Backend & API</button>
-                <button class="filter-btn" data-filter="ai">AI / GenAI</button>
-                <button class="filter-btn" data-filter="fullstack">Fullstack</button>
+        <!-- ========== PROJECTS ========== -->
+        <section id="projects" class="projects-section scroll-reveal" aria-labelledby="projects-heading">
+            <h2 class="section-title" id="projects-heading">Featured <span class="gradient-text">Projects</span></h2>
+
+            <div class="project-filters" role="group" aria-label="Filter projects by category">
+                <button class="filter-btn active" data-filter="all"      aria-pressed="true">All</button>
+                <button class="filter-btn"         data-filter="fullstack" aria-pressed="false">Full-Stack</button>
+                <button class="filter-btn"         data-filter="ai"       aria-pressed="false">AI / GenAI</button>
+                <button class="filter-btn"         data-filter="backend"  aria-pressed="false">Backend</button>
             </div>
 
             <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-image-placeholder">
+
+                <!-- LUXE -->
+                <article class="project-card" data-category="fullstack" aria-label="LUXE Store project">
+                    <div class="project-image-placeholder luxe-placeholder" aria-hidden="true">
                         <i class="fa-solid fa-bag-shopping project-icon"></i>
+                        <span class="project-preview-label">LUXE Store</span>
                     </div>
                     <div class="project-details">
-                        <span class="project-tag">Fullstack / Flask</span>
-                        <h3>LUXE – AI Luxury E-Commerce</h3>
-                        <p>Luxury e-commerce featuring dynamic responsive frontend, Flask backend, Socket.IO real-time channels, JWT auth, and Supabase RLS.</p>
+                        <div class="project-meta">
+                            <span class="project-tag">Full-Stack</span>
+                        </div>
+                        <h3>LUXE — E-Commerce + AI Concierge</h3>
+                        <p>An e-commerce web app with a Flask backend, real-time Socket.IO channels, Supabase RLS-protected PostgreSQL, and JWT authentication. Includes an AI shopping assistant powered by the Groq API.</p>
+                        <div class="project-stack">
+                            <span>Flask</span><span>React</span><span>PostgreSQL</span><span>Supabase</span><span>Groq API</span><span>Socket.IO</span>
+                        </div>
                         <ul class="project-bullets">
-                            <li>AI shopping concierge powered by Groq API for natural language product help.</li>
-                            <li>Automated PDF invoice generation with ReportLab.</li>
+                            <li>REST API backend with Flask and JWT authentication.</li>
+                            <li>Supabase row-level security for per-user data isolation.</li>
+                            <li>AI shopping assistant using Groq LLM API (natural language queries).</li>
+                            <li>Automated PDF invoice generation using ReportLab.</li>
                         </ul>
                         <div class="project-links">
-                            <a href="https://github.com/Satyamshiv0079/LUXE-Store" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>
-                            <a href="https://luxe-store-nine.vercel.app/" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+                            <a href="https://github.com/Satyamshiv0079/LUXE-Store" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                            </a>
+                            <a href="https://luxe-store-nine.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link project-link--live">
+                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                            </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 2 -->
-                <div class="project-card" data-category="ai">
-                    <div class="project-image-placeholder">
+                <!-- NovaMind -->
+                <article class="project-card" data-category="ai" aria-label="NovaMind AI Chatbot project">
+                    <div class="project-image-placeholder nova-placeholder" aria-hidden="true">
                         <i class="fa-solid fa-robot project-icon"></i>
+                        <span class="project-preview-label">NovaMind</span>
                     </div>
                     <div class="project-details">
-                        <span class="project-tag">AI / Fullstack</span>
-                        <h3>NovaMind – AI-Powered Chatbot</h3>
-                        <p>Full-stack AI chatbot built with Flask, React, Supabase PostgreSQL, and Groq's LLM API (Llama 3.3, Mixtral, Gemma). Features JWT auth and persistent session histories.</p>
+                        <div class="project-meta">
+                            <span class="project-tag">AI / Full-Stack</span>
+                        </div>
+                        <h3>NovaMind — AI Chatbot</h3>
+                        <p>A full-stack AI chatbot with a Flask REST API backend, React frontend, Supabase PostgreSQL for persistent session history, and Groq LLM API integration supporting multiple models (Llama 3.3, Mixtral, Gemma).</p>
+                        <div class="project-stack">
+                            <span>Flask</span><span>React</span><span>PostgreSQL</span><span>Groq API</span><span>JWT</span><span>Docker</span>
+                        </div>
                         <ul class="project-bullets">
-                            <li>Implemented JWT security, bcrypt password hashing, and database-persisted session history in Supabase.</li>
-                            <li>Built a responsive spatial 3D UI featuring perspective hover tilts, frosted glass cards, and a mobile drawer layout.</li>
+                            <li>JWT auth with bcrypt password hashing and token refresh.</li>
+                            <li>Persistent chat sessions stored in Supabase PostgreSQL.</li>
+                            <li>Multi-model selector: Llama 3.3 70B, Mixtral 8x7B, Gemma 2 9B.</li>
+                            <li>Dockerised backend deployed to Render; frontend to Vercel.</li>
                         </ul>
                         <div class="project-links">
-                            <a href="https://github.com/Satyamshiv0079/ai-chatbot" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>
-                            <a href="https://ai-chatbot-6njs1ys87-satyamshiv0079s-projects.vercel.app" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+                            <a href="https://github.com/Satyamshiv0079/ai-chatbot" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                            </a>
+                            <a href="https://ai-chatbot-6njs1ys87-satyamshiv0079s-projects.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link project-link--live">
+                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                            </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 3 -->
-                <div class="project-card" data-category="backend">
-                    <div class="project-image-placeholder">
+                <!-- Java Study Tracker -->
+                <article class="project-card" data-category="backend" aria-label="Java Study Tracker project">
+                    <div class="project-image-placeholder tracker-placeholder" aria-hidden="true">
                         <i class="fa-solid fa-calendar-check project-icon"></i>
+                        <span class="project-preview-label">Study Tracker</span>
                     </div>
                     <div class="project-details">
-                        <span class="project-tag">Backend / Java API</span>
-                        <h3>45-Day Java Backend Study Tracker</h3>
-                        <p>Full-stack educational roadmap webapp explaining Spring Boot, SQL, DSA, System Design, and analytics dashboards using Recharts.</p>
+                        <div class="project-meta">
+                            <span class="project-tag">Full-Stack</span>
+                        </div>
+                        <h3>Java Backend Study Tracker</h3>
+                        <p>A full-stack study planning app for a 45-day Java and Spring Boot curriculum. Tracks daily topics, progress analytics, and includes an AI mentor powered by the Gemini API for concept explanations.</p>
+                        <div class="project-stack">
+                            <span>React</span><span>Gemini API</span><span>Recharts</span><span>Spring Boot</span>
+                        </div>
                         <ul class="project-bullets">
-                            <li>AI Mentor powered by Gemini API to explain concepts and review code.</li>
-                            <li>Productivity tracker with integrated Pomodoro tool.</li>
+                            <li>AI mentor using Gemini API to explain Java / Spring Boot concepts.</li>
+                            <li>Progress analytics dashboard with Recharts visualisations.</li>
+                            <li>Integrated Pomodoro productivity timer.</li>
+                            <li>Curriculum covers REST APIs, SQL, DSA, and System Design topics.</li>
                         </ul>
                         <div class="project-links">
-                            <a href="https://github.com/Satyamshiv0079/java-study-tracker" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>
-                            <a href="https://java-study-tracker-omega.vercel.app/" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+                            <a href="https://github.com/Satyamshiv0079/java-study-tracker" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                            </a>
+                            <a href="https://java-study-tracker-omega.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link project-link--live">
+                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ========== CERTIFICATIONS ========== -->
+        <section id="certifications" class="certifications-section scroll-reveal" aria-labelledby="certs-heading">
+            <h2 class="section-title" id="certs-heading">Certifications &amp; <span class="gradient-text">Achievements</span></h2>
+
+            <div class="certs-layout">
+
+                <div class="certs-block">
+                    <h3 class="certs-block-title">Certifications</h3>
+                    <div class="certifications-grid">
+
+                        <div class="certifications-card">
+                            <i class="fa-solid fa-brain certification-icon" aria-hidden="true"></i>
+                            <div class="cert-info">
+                                <h4>Introduction to Generative AI</h4>
+                                <p>Core Concepts — Google Cloud</p>
+                            </div>
+                        </div>
+
+                        <div class="certifications-card">
+                            <i class="fa-solid fa-shield-halved certification-icon" aria-hidden="true"></i>
+                            <div class="cert-info">
+                                <h4>Cyber Security Job Simulation</h4>
+                                <p>Deloitte Australia</p>
+                            </div>
+                        </div>
+
+                        <div class="certifications-card">
+                            <i class="fa-solid fa-chart-pie certification-icon" aria-hidden="true"></i>
+                            <div class="cert-info">
+                                <h4>Data Analytics Job Simulation</h4>
+                                <p>Deloitte Australia</p>
+                            </div>
+                        </div>
+
+                        <div class="certifications-card">
+                            <i class="fa-solid fa-network-wired certification-icon" aria-hidden="true"></i>
+                            <div class="cert-info">
+                                <h4>CCNA: Introduction to Networks</h4>
+                                <p>Cisco Networking Academy</p>
+                            </div>
+                        </div>
+
+                        <div class="certifications-card">
+                            <i class="fa-solid fa-microchip certification-icon" aria-hidden="true"></i>
+                            <div class="cert-info">
+                                <h4>8-Bit Microcontrollers — PIC16</h4>
+                                <p>Microchip Technology</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="certs-block">
+                    <h3 class="certs-block-title">Achievements</h3>
+                    <div class="achievements-list">
+                        <div class="achievement-item">
+                            <i class="fa-solid fa-code achievement-icon" aria-hidden="true"></i>
+                            <div>
+                                <h4>150+ LeetCode Problems Solved</h4>
+                                <p>Active practice in Arrays, Strings, Trees, Graphs, and Dynamic Programming.</p>
+                                <a href="https://leetcode.com/u/Satyamshiv0079/" target="_blank" rel="noopener noreferrer" class="cert-link">View Profile <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fa-solid fa-boxes-stacked achievement-icon" aria-hidden="true"></i>
+                            <div>
+                                <h4>3 Full-Stack Projects Shipped</h4>
+                                <p>Projects covering REST APIs, LLM integration, real-time features, and cloud deployment.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Certifications Section -->
-        <section id="certifications" class="certifications-section scroll-reveal">
-            <h2 class="section-title">Certifications & <span class="gradient-text">Achievements</span></h2>
-            <div class="certifications-grid">
-                
-                <div class="certifications-card">
-                    <i class="fa-solid fa-award certification-icon"></i>
-                    <h4>8 Bit Microcontrollers</h4>
-                    <p>Architecture of the PIC16</p>
-                </div>
-
-                <div class="certifications-card">
-                    <i class="fa-solid fa-brain certification-icon"></i>
-                    <h4>Intro to Generative AI</h4>
-                    <p>Core Concepts Specialization</p>
-                </div>
-
-                <div class="certifications-card">
-                    <i class="fa-solid fa-shield-halved certification-icon"></i>
-                    <h4>Deloitte Cyber Job Simulation</h4>
-                    <p>Deloitte Australia</p>
-                </div>
-
-                <div class="certifications-card">
-                    <i class="fa-solid fa-network-wired certification-icon"></i>
-                    <h4>CCNA: Introduction to Networks</h4>
-                    <p>Cisco Systems</p>
-                </div>
-
-                <div class="certifications-card">
-                    <i class="fa-solid fa-chart-pie certification-icon"></i>
-                    <h4>Deloitte Data Analytics Job Simulation</h4>
-                    <p>Deloitte Australia</p>
-                </div>
-
-                <div class="certifications-card">
-                    <i class="fa-solid fa-trophy certification-icon"></i>
-                    <h4>LeetCode Competitive Programming</h4>
-                    <p>Solved 150+ DSA Problems, active practice in Graphs, Trees, and DP.</p>
-                </div>
 
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section scroll-reveal">
-            <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+        <!-- ========== CONTACT ========== -->
+        <section id="contact" class="contact-section scroll-reveal" aria-labelledby="contact-heading">
+            <h2 class="section-title" id="contact-heading">Get in <span class="gradient-text">Touch</span></h2>
             <div class="contact-container">
+
                 <div class="contact-info">
-                    <h3>Get in Touch</h3>
-                    <p>Have an exciting software development or AI project to build? Or looking for a backend-focused engineer to join your team? Feel free to reach out.</p>
+                    <h3>Let's Connect</h3>
+                    <p>I am open to Software Engineer roles and interesting project collaborations. The best way to reach me is by email.</p>
                     <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fa-solid fa-envelope"></i>
+                        <a class="contact-item" href="mailto:Satyam.shiv0079@gmail.com" aria-label="Send email to Satyam">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                             <span>Satyam.shiv0079@gmail.com</span>
-                        </div>
+                        </a>
                         <div class="contact-item">
-                            <i class="fa-solid fa-location-dot"></i>
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                             <span>Delhi, India</span>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://github.com/Satyamshiv0079" target="_blank" class="social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/satyamshiv0079/" target="_blank" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="https://leetcode.com/u/Satyamshiv0079/" target="_blank" class="social-link" title="LeetCode"><i class="fa-solid fa-code"></i></a>
+                        <a href="https://github.com/Satyamshiv0079" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile">
+                            <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/satyamshiv0079/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile">
+                            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://leetcode.com/u/Satyamshiv0079/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LeetCode profile">
+                            <i class="fa-solid fa-code" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
 
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" required placeholder="Your Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required placeholder="your.email@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" rows="5" required placeholder="Tell me about your project or opportunity..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
-                    <div id="form-success" class="form-status success">Message sent successfully!</div>
-                </form>
+                <div class="contact-form-wrapper">
+                    <p class="contact-form-note">
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                        This form opens your email client. Alternatively, email me directly at
+                        <a href="mailto:Satyam.shiv0079@gmail.com">Satyam.shiv0079@gmail.com</a>.
+                    </p>
+                    <form class="contact-form" id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="contact-name">Name <span aria-hidden="true">*</span></label>
+                            <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Your Name">
+                            <span class="field-error" id="name-error" role="alert" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email <span aria-hidden="true">*</span></label>
+                            <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="your.email@example.com">
+                            <span class="field-error" id="email-error" role="alert" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message <span aria-hidden="true">*</span></label>
+                            <textarea id="contact-message" name="message" rows="5" required placeholder="Tell me about the role or project..."></textarea>
+                            <span class="field-error" id="message-error" role="alert" aria-live="polite"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i> Send via Email
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Satyam Shiv. Designed with passion.</p>
+    <footer role="contentinfo">
+        <p>&copy; 2026 Satyam Shiv &mdash; Delhi, India</p>
     </footer>
 
-    <!-- NovaMind Floating Chatbot Widget -->
-    <div class="chatbot-widget-container">
-        <!-- Floating Toggle Button -->
-        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn" title="Chat with NovaMind AI">
-            <i class="fa-solid fa-robot"></i>
-            <span class="pulse-ring"></span>
+    <!-- Portfolio Assistant Widget -->
+    <div class="chatbot-widget-container" id="chatbot-widget">
+        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn"
+                aria-label="Open Portfolio Assistant"
+                aria-expanded="false"
+                aria-controls="chatbot-window">
+            <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
+            <span class="pulse-ring" aria-hidden="true"></span>
         </button>
 
-        <!-- Floating Chat Window (Local Chat Widget) -->
-        <div id="chatbot-window" class="chatbot-window">
+        <div id="chatbot-window" class="chatbot-window" role="dialog" aria-label="Portfolio Assistant" aria-hidden="true">
             <div class="chatbot-window-header">
                 <div class="chatbot-header-info">
-                    <span class="chatbot-status-dot"></span>
-                    <h4>NovaMind AI Assistant</h4>
+                    <span class="chatbot-status-dot" aria-hidden="true"></span>
+                    <h4>Portfolio Assistant</h4>
                 </div>
-                <button id="chatbot-close-btn" class="chatbot-close-btn">&times;</button>
+                <button id="chatbot-close-btn" class="chatbot-close-btn" aria-label="Close Portfolio Assistant">&times;</button>
             </div>
-            <div class="chatbot-body" id="chatbot-body">
+            <div class="chatbot-body" id="chatbot-body" role="log" aria-live="polite" aria-label="Conversation">
                 <div class="chat-message bot">
-                    Hi! I'm NovaMind. Ask me anything about Satyam's projects, experience, education, or skills!
+                    Hi! Ask me about Satyam's projects, skills, education, or how to get in touch. I'll answer based on what's on this portfolio.
                 </div>
             </div>
             <div class="chatbot-input-container">
-                <input type="text" id="chatbot-input" placeholder="Ask me anything...">
-                <button id="chatbot-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                <label for="chatbot-input" class="sr-only">Your question</label>
+                <input type="text" id="chatbot-input" placeholder="Ask a question..." autocomplete="off" maxlength="200">
+                <button id="chatbot-send-btn" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Main JavaScript Sheet -->
     <script src="script.js"></script>
 </body>
 </html>

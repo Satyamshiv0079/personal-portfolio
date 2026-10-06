@@ -1,360 +1,529 @@
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- PARTICLE BACKGROUND CANVAS ---
+/**
+ * portfolio/script.js
+ * Clean, single-pass script — no duplicate listeners, no global pollution.
+ */
+(function () {
+    'use strict';
+
+    /* =========================================================
+       PARTICLE CANVAS
+       ========================================================= */
     const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx    = canvas ? canvas.getContext('2d') : null;
 
-    let particles = [];
-    let mouse = { x: null, y: null, radius: 100 };
+    // Reduce particle count on mobile/low-power devices
+    const isMobile     = window.matchMedia('(max-width: 768px)').matches;
+    const prefersLess  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const PARTICLE_COUNT = prefersLess ? 0 : isMobile ? 40 : 80;
+    const CONNECT_DIST   = 110;
+    const BASE_SPEED     = 0.4;
 
-    // Resize Canvas
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
+    let particles   = [];
+    let animFrameId = null;
+    let mouse       = { x: null, y: null };
+
+    function resize() {
+        if (!canvas) return;
+        canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
-    // Track Mouse
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.x;
-        mouse.y = e.y;
-    });
-
-    window.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-    });
-
-    // Particle Constructor
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1;
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.speedY = Math.random() * 0.5 - 0.25;
-            this.baseColor = 'rgba(167, 139, 250, 0.4)'; // Neon violet-ish
-        }
-
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-
-            // Boundaries
-            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-            // Mouse Interaction (Push/Attract effect)
-            if (mouse.x != null && mouse.y != null) {
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouse.radius) {
-                    let forceDirectionX = dx / distance;
-                    let forceDirectionY = dy / distance;
-                    let force = (mouse.radius - distance) / mouse.radius;
-                    let directionX = forceDirectionX * force * 1.5;
-                    let directionY = forceDirectionY * force * 1.5;
-
-                    this.x -= directionX;
-                    this.y -= directionY;
-                }
-            }
-        }
-
-        draw() {
-            ctx.fillStyle = this.baseColor;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
+    function createParticle() {
+        return {
+            x:    Math.random() * canvas.width,
+            y:    Math.random() * canvas.height,
+            vx:   (Math.random() - 0.5) * BASE_SPEED,
+            vy:   (Math.random() - 0.5) * BASE_SPEED,
+            size: Math.random() * 1.5 + 0.5,
+        };
     }
 
-    // Init Particle System
     function initParticles() {
         particles = [];
-        const count = Math.min(Math.floor((canvas.width * canvas.height) / 12000), 120);
-        for (let i = 0; i < count; i++) {
-            particles.push(new Particle());
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(createParticle());
         }
     }
-    initParticles();
-    window.addEventListener('resize', initParticles);
 
-    // Draw lines between nearby particles
-    function connectParticles() {
+    function drawParticles() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         for (let a = 0; a < particles.length; a++) {
-            for (let b = a; b < particles.length; b++) {
-                let dx = particles[a].x - particles[b].x;
-                let dy = particles[a].y - particles[b].y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
+            const p = particles[a];
 
-                if (distance < 120) {
-                    let opacity = (1 - (distance / 120)) * 0.15;
-                    ctx.strokeStyle = `rgba(96, 165, 250, ${opacity})`; // Soft blue lines
-                    ctx.lineWidth = 1;
+            // Move
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap edges
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width)  p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+
+            // Mouse repulsion (gentle)
+            if (mouse.x !== null) {
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 90) {
+                    p.x += dx * 0.02;
+                    p.y += dy * 0.02;
+                }
+            }
+
+            // Draw dot
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(167, 139, 250, 0.5)';
+            ctx.fill();
+
+            // Draw connections — start from a+1 to avoid self-comparison and duplication
+            for (let b = a + 1; b < particles.length; b++) {
+                const q    = particles[b];
+                const ddx  = p.x - q.x;
+                const ddy  = p.y - q.y;
+                const d    = Math.sqrt(ddx * ddx + ddy * ddy);
+                if (d < CONNECT_DIST) {
                     ctx.beginPath();
-                    ctx.moveTo(particles[a].x, particles[a].y);
-                    ctx.lineTo(particles[b].x, particles[b].y);
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(q.x, q.y);
+                    ctx.strokeStyle = `rgba(167, 139, 250, ${(1 - d / CONNECT_DIST) * 0.18})`;
+                    ctx.lineWidth   = 0.7;
                     ctx.stroke();
                 }
             }
         }
     }
 
-    // Animation Loop
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Custom space background logic in canvas if needed, else gradient-css takes care of it
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
-        });
-        connectParticles();
-        requestAnimationFrame(animate);
+    function animateParticles() {
+        drawParticles();
+        animFrameId = requestAnimationFrame(animateParticles);
     }
-    animate();
 
-
-    // --- TYPING EFFECT ---
-    const roles = ["Backend Engineer.", "Software Engineer.", "GenAI Integrator.", "Problem Solver."];
-    let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typingSpan = document.getElementById('role-text');
-
-    function typeEffect() {
-        const currentRole = roles[roleIndex];
-        
-        if (isDeleting) {
-            typingSpan.textContent = currentRole.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typingSpan.textContent = currentRole.substring(0, charIndex + 1);
-            charIndex++;
+    function stopAnimation() {
+        if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
         }
+    }
 
-        let typingSpeed = isDeleting ? 40 : 100;
-
-        if (!isDeleting && charIndex === currentRole.length) {
-            typingSpeed = 2000; // Pause at full word
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            roleIndex = (roleIndex + 1) % roles.length;
-            typingSpeed = 500; // Pause before typing next
+    function startAnimation() {
+        if (!animFrameId && PARTICLE_COUNT > 0) {
+            animateParticles();
         }
-
-        setTimeout(typeEffect, typingSpeed);
-    }
-    if (typingSpan) typeEffect();
-
-
-    // --- MOBILE NAVBAR TOGGLE ---
-    const menuToggle = document.getElementById('mobile-menu');
-    const navLinksContainer = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    if (menuToggle && navLinksContainer) {
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navLinksContainer.classList.toggle('active');
-        });
-
-        // Close menu on link click
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navLinksContainer.classList.remove('active');
-            });
-        });
     }
 
-    // Scroll Navbar effect
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
+    // Pause when tab is hidden
+    document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') {
+            startAnimation();
         } else {
-            navbar.classList.remove('scrolled');
+            stopAnimation();
         }
     });
 
+    if (canvas && PARTICLE_COUNT > 0) {
+        resize();
+        initParticles();
+        startAnimation();
+        window.addEventListener('resize', function () {
+            resize();
+            initParticles();
+        });
+        canvas.addEventListener('mousemove', function (e) {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        canvas.addEventListener('mouseleave', function () {
+            mouse.x = null;
+            mouse.y = null;
+        });
+    }
 
-    // --- ACTIVE NAV LINK STATE ON SCROLL ---
-    const sections = document.querySelectorAll('section');
-    
-    function highlightNavLink() {
-        let scrollY = window.pageYOffset;
-        
-        sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 150;
-            const sectionId = current.getAttribute('id');
-            
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                document.querySelector('.nav-links a[href*=' + sectionId + ']').classList.add('active');
+    /* =========================================================
+       TYPING EFFECT
+       ========================================================= */
+    const roles = [
+        'Backend Engineer',
+        'Full-Stack Developer',
+        'GenAI Builder',
+        'REST API Developer',
+    ];
+
+    const typeEl = document.getElementById('role-text');
+
+    if (typeEl && !prefersLess) {
+        let roleIdx = 0;
+        let charIdx = 0;
+        let deleting = false;
+
+        function type() {
+            const current = roles[roleIdx];
+
+            if (!deleting) {
+                typeEl.textContent = current.slice(0, charIdx + 1);
+                charIdx++;
+                if (charIdx === current.length) {
+                    deleting = true;
+                    setTimeout(type, 1600);
+                    return;
+                }
             } else {
-                document.querySelector('.nav-links a[href*=' + sectionId + ']').classList.remove('active');
+                typeEl.textContent = current.slice(0, charIdx - 1);
+                charIdx--;
+                if (charIdx === 0) {
+                    deleting = false;
+                    roleIdx  = (roleIdx + 1) % roles.length;
+                }
             }
+            setTimeout(type, deleting ? 55 : 95);
+        }
+
+        type();
+    } else if (typeEl) {
+        typeEl.textContent = roles[0];
+    }
+
+    /* =========================================================
+       NAVBAR — scroll + mobile toggle + active link
+       ========================================================= */
+    const navbar    = document.querySelector('.navbar');
+    const menuBtn   = document.getElementById('mobile-menu');
+    const navLinks  = document.getElementById('nav-links');
+    const allLinks  = document.querySelectorAll('.nav-link');
+
+    if (navbar) {
+        window.addEventListener('scroll', function () {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+    }
+
+    if (menuBtn && navLinks) {
+        menuBtn.addEventListener('click', function () {
+            const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+            menuBtn.setAttribute('aria-expanded', String(!expanded));
+            menuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close on link click (mobile)
+        navLinks.querySelectorAll('.nav-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
         });
     }
-    window.addEventListener('scroll', highlightNavLink);
 
+    // Scroll-spy for active nav link
+    const sections = document.querySelectorAll('section[id]');
 
-    // --- PROJECTS CATEGORY FILTER ---
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+    function updateActiveLink() {
+        let current = '';
+        sections.forEach(function (sec) {
+            const top = sec.offsetTop - 100;
+            if (window.scrollY >= top) {
+                current = sec.getAttribute('id');
+            }
+        });
+        allLinks.forEach(function (link) {
+            const href = link.getAttribute('href').slice(1);
+            const isActive = href === current;
+            link.classList.toggle('active', isActive);
+            link.setAttribute('aria-current', isActive ? 'page' : 'false');
+        });
+    }
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active to clicked button
-            button.classList.add('active');
-            
-            const filterValue = button.getAttribute('data-filter');
-            
-            projectCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filterValue === 'all' || category === filterValue) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 50);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+
+    /* =========================================================
+       SCROLL REVEAL
+       ========================================================= */
+    if (!prefersLess) {
+        const revealEls = document.querySelectorAll('.scroll-reveal');
+        const observer  = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealEls.forEach(function (el) { observer.observe(el); });
+    } else {
+        // Skip reveal animation — show everything immediately
+        document.querySelectorAll('.scroll-reveal').forEach(function (el) {
+            el.classList.add('visible');
+        });
+    }
+
+    /* =========================================================
+       PROJECT FILTER
+       ========================================================= */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projCards  = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const filter = btn.getAttribute('data-filter');
+
+            filterBtns.forEach(function (b) {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
+
+            projCards.forEach(function (card) {
+                const cat = card.getAttribute('data-category');
+                const show = filter === 'all' || cat === filter;
+                card.style.display = show ? '' : 'none';
             });
         });
     });
 
-
-    // --- CONTACT FORM SUBMISSION MOCK ---
+    /* =========================================================
+       CONTACT FORM — mailto (honest, no fake submission)
+       ========================================================= */
     const contactForm = document.getElementById('contact-form');
-    const formSuccess = document.getElementById('form-success');
 
-    if (contactForm && formSuccess) {
-        contactForm.addEventListener('submit', (e) => {
+    if (contactForm) {
+        const nameInput    = document.getElementById('contact-name');
+        const emailInput   = document.getElementById('contact-email');
+        const messageInput = document.getElementById('contact-message');
+        const nameError    = document.getElementById('name-error');
+        const emailError   = document.getElementById('email-error');
+        const msgError     = document.getElementById('message-error');
+
+        function showError(inputEl, errorEl, msg) {
+            if (!inputEl || !errorEl) return;
+            inputEl.classList.add('error');
+            errorEl.textContent = msg;
+        }
+
+        function clearError(inputEl, errorEl) {
+            if (!inputEl || !errorEl) return;
+            inputEl.classList.remove('error');
+            errorEl.textContent = '';
+        }
+
+        function validateEmail(v) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+
+        [nameInput, emailInput, messageInput].forEach(function (el) {
+            if (!el) return;
+            el.addEventListener('input', function () {
+                el.classList.remove('error');
+            });
+        });
+
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
-            // Simulating API submit success
-            formSuccess.style.display = 'block';
-            contactForm.reset();
-            
-            setTimeout(() => {
-                formSuccess.style.display = 'none';
-            }, 5000);
+
+            let valid = true;
+
+            if (nameInput) clearError(nameInput, nameError);
+            if (emailInput) clearError(emailInput, emailError);
+            if (messageInput) clearError(messageInput, msgError);
+
+            const name    = nameInput    ? nameInput.value.trim()    : '';
+            const email   = emailInput   ? emailInput.value.trim()   : '';
+            const message = messageInput ? messageInput.value.trim() : '';
+
+            if (!name) {
+                showError(nameInput, nameError, 'Please enter your name.');
+                valid = false;
+            }
+
+            if (!email) {
+                showError(emailInput, emailError, 'Please enter your email address.');
+                valid = false;
+            } else if (!validateEmail(email)) {
+                showError(emailInput, emailError, 'Please enter a valid email address.');
+                valid = false;
+            }
+
+            if (!message) {
+                showError(messageInput, msgError, 'Please enter a message.');
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            // Open mailto — honest, no fake submission
+            const subject  = encodeURIComponent('Portfolio Enquiry from ' + name);
+            const body     = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+            const mailtoUrl = 'mailto:Satyam.shiv0079@gmail.com?subject=' + subject + '&body=' + body;
+
+            window.location.href = mailtoUrl;
         });
     }
 
+    /* =========================================================
+       PORTFOLIO ASSISTANT (rule-based Q&A)
+       ========================================================= */
+    const toggleBtn  = document.getElementById('chatbot-toggle-btn');
+    const closeBtn   = document.getElementById('chatbot-close-btn');
+    const chatWindow = document.getElementById('chatbot-window');
+    const chatBody   = document.getElementById('chatbot-body');
+    const chatInput  = document.getElementById('chatbot-input');
+    const sendBtn    = document.getElementById('chatbot-send-btn');
 
-    // --- SCROLL REVEAL OBSERVER ---
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                
-                // If it's the skills section, animate the bars
-                if (entry.target.id === 'skills') {
-                    const progressBars = entry.target.querySelectorAll('.skill-progress');
-                    progressBars.forEach(bar => {
-                        // Triggers transition by reading style
-                        const width = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
-                    });
+    // Knowledge base — only real facts from the portfolio
+    const KB = [
+        {
+            patterns: ['who are you', 'what is this', 'about you', 'tell me about satyam', 'introduce'],
+            answer: "I'm a portfolio assistant. Satyam Shiv is a Backend-focused Software Engineer and B.Tech CSE student at Galgotias University (2023–2026), based in Delhi, India."
+        },
+        {
+            patterns: ['project', 'built', 'made', 'work', 'portfolio'],
+            answer: "Satyam has three shipped projects:\n\n• LUXE — E-Commerce with Flask, Groq AI, Supabase, and Socket.IO\n• NovaMind — AI Chatbot with Flask, React, Groq LLM, and Supabase\n• Java Study Tracker — Progress app with Gemini API, React, and Recharts"
+        },
+        {
+            patterns: ['skill', 'technology', 'tech stack', 'language', 'tools', 'know'],
+            answer: "Languages: Java, Python, JavaScript, SQL\nBackend: Spring Boot, Flask, REST APIs, Node.js\nDatabases: PostgreSQL, Supabase, MySQL, SQLite\nFrontend: React.js, HTML, CSS\nAI/APIs: Groq API, Gemini API\nTools: Docker, Git, Vercel, Render"
+        },
+        {
+            patterns: ['leetcode', 'dsa', 'algorithm', 'problem solving', 'competitive'],
+            answer: "Satyam has solved 150+ problems on LeetCode, practising Arrays, Strings, Trees, Graphs, and Dynamic Programming. Profile: https://leetcode.com/u/Satyamshiv0079/"
+        },
+        {
+            patterns: ['experience', 'intern', 'internship', 'job', 'work history'],
+            answer: "Satyam completed two virtual internships in 2024 via EduSkills Academy (AICTE):\n• Google Android Developer — Java, XML, Material Design\n• Microchip Embedded Systems — Embedded C, PIC microcontrollers"
+        },
+        {
+            patterns: ['education', 'degree', 'university', 'college', 'btech', 'graduation'],
+            answer: "B.Tech in Computer Science & Engineering, Galgotias University, Greater Noida (2023–2026). Prior: Diploma in Mechanical Engineering, LNCT&S (82.1%)."
+        },
+        {
+            patterns: ['certif', 'certification', 'course', 'credential'],
+            answer: "Certifications include:\n• Introduction to Generative AI — Google Cloud\n• Cyber Security Job Simulation — Deloitte Australia\n• Data Analytics Job Simulation — Deloitte Australia\n• CCNA: Introduction to Networks — Cisco\n• 8-Bit Microcontrollers (PIC16) — Microchip Technology"
+        },
+        {
+            patterns: ['contact', 'email', 'reach', 'hire', 'available', 'open to work'],
+            answer: "Satyam is open to Software Engineer roles. Email: Satyam.shiv0079@gmail.com\nLinkedIn: linkedin.com/in/satyamshiv0079/\nGitHub: github.com/Satyamshiv0079"
+        },
+        {
+            patterns: ['github', 'repo', 'code', 'source'],
+            answer: "GitHub: https://github.com/Satyamshiv0079\nPortfolio repo: https://github.com/Satyamshiv0079/personal-portfolio"
+        },
+        {
+            patterns: ['linkedin'],
+            answer: "LinkedIn: https://www.linkedin.com/in/satyamshiv0079/"
+        },
+        {
+            patterns: ['location', 'city', 'where', 'based', 'india', 'delhi'],
+            answer: "Satyam is based in Delhi, India."
+        },
+        {
+            patterns: ['luxe', 'ecommerce', 'e-commerce', 'store'],
+            answer: "LUXE is an e-commerce app built with Flask, Supabase PostgreSQL, React, and Groq API. Features JWT auth, Supabase RLS, real-time Socket.IO channels, an AI shopping assistant, and PDF invoice generation.\nGitHub: https://github.com/Satyamshiv0079/LUXE-Store\nLive: https://luxe-store-nine.vercel.app/"
+        },
+        {
+            patterns: ['novamind', 'chatbot', 'ai chatbot', 'bot', 'groq'],
+            answer: "NovaMind is a full-stack AI chatbot. Flask REST API backend, React frontend, Supabase for session persistence, Groq LLM API (Llama 3.3, Mixtral, Gemma), JWT auth, and Docker deployment.\nGitHub: https://github.com/Satyamshiv0079/ai-chatbot\nLive: https://ai-chatbot-6njs1ys87-satyamshiv0079s-projects.vercel.app"
+        },
+        {
+            patterns: ['java', 'tracker', 'study', 'pomodoro', 'gemini'],
+            answer: "The Java Study Tracker is a 45-day curriculum app with progress analytics (Recharts), Gemini API mentor, Pomodoro timer, and topics covering Spring Boot, SQL, DSA, and System Design.\nGitHub: https://github.com/Satyamshiv0079/java-study-tracker\nLive: https://java-study-tracker-omega.vercel.app/"
+        },
+    ];
+
+    function getBotAnswer(query) {
+        const q = query.toLowerCase().trim();
+        if (!q) return null;
+
+        for (const entry of KB) {
+            for (const pat of entry.patterns) {
+                if (q.includes(pat)) {
+                    return entry.answer;
                 }
-                
-                observer.unobserve(entry.target);
+            }
+        }
+        return "I don't have an answer for that. Try asking about Satyam's projects, skills, education, certifications, or how to get in touch. You can also email directly at Satyam.shiv0079@gmail.com.";
+    }
+
+    function appendMsg(text, who) {
+        if (!chatBody) return;
+        const div = document.createElement('div');
+        div.className = 'chat-message ' + who;
+        div.textContent = text;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function showTyping() {
+        if (!chatBody) return null;
+        const div = document.createElement('div');
+        div.className = 'chat-typing';
+        div.setAttribute('aria-label', 'Assistant is typing');
+        div.innerHTML = '<span></span><span></span><span></span>';
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return div;
+    }
+
+    function handleSend() {
+        if (!chatInput) return;
+        const query = chatInput.value.trim();
+        if (!query) return;
+
+        appendMsg(query, 'user');
+        chatInput.value = '';
+        chatInput.focus();
+
+        const typingEl = showTyping();
+        setTimeout(function () {
+            if (typingEl && typingEl.parentNode) {
+                typingEl.parentNode.removeChild(typingEl);
+            }
+            const answer = getBotAnswer(query);
+            appendMsg(answer, 'bot');
+        }, 520);
+    }
+
+    if (toggleBtn && chatWindow && closeBtn) {
+        toggleBtn.addEventListener('click', function () {
+            const isOpen = chatWindow.classList.toggle('active');
+            toggleBtn.setAttribute('aria-expanded', String(isOpen));
+            chatWindow.setAttribute('aria-hidden', String(!isOpen));
+            if (isOpen && chatInput) chatInput.focus();
+        });
+
+        closeBtn.addEventListener('click', function () {
+            chatWindow.classList.remove('active');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            chatWindow.setAttribute('aria-hidden', 'true');
+            toggleBtn.focus();
+        });
+
+        // Close on Escape
+        chatWindow.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                chatWindow.classList.remove('active');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+                chatWindow.setAttribute('aria-hidden', 'true');
+                toggleBtn.focus();
             }
         });
-    }, {
-        threshold: 0.15
-    });
+    }
 
-    // --- CHATBOT WIDGET TOGGLE & MESSAGING ---
-    const chatbotToggleBtn = document.getElementById('chatbot-toggle-btn');
-    const chatbotWindow = document.getElementById('chatbot-window');
-    const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
-    const chatbotBody = document.getElementById('chatbot-body');
-    const chatbotInput = document.getElementById('chatbot-input');
-    const chatbotSendBtn = document.getElementById('chatbot-send-btn');
+    if (sendBtn) {
+        sendBtn.addEventListener('click', handleSend);
+    }
 
-    if (chatbotToggleBtn && chatbotWindow && chatbotCloseBtn) {
-        chatbotToggleBtn.addEventListener('click', () => {
-            chatbotWindow.classList.toggle('active');
-        });
-
-        chatbotCloseBtn.addEventListener('click', () => {
-            chatbotWindow.classList.remove('active');
+    if (chatInput) {
+        chatInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSend();
+            }
         });
     }
 
-    function appendMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('chat-message', sender);
-        messageDiv.textContent = text;
-        chatbotBody.appendChild(messageDiv);
-        chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    }
-
-    function generateBotResponse(userMsg) {
-        const query = userMsg.toLowerCase();
-        
-        if (query.includes('project') || query.includes('work') || query.includes('luxe') || query.includes('novamind') || query.includes('tracker')) {
-            return "Satyam has built three key projects:\n1. LUXE: An AI-Powered Luxury E-Commerce platform using Flask, Socket.IO, Groq API, and Supabase.\n2. NovaMind: A Spatial 3D AI Chatbot built with React, Flask, Groq LLMs (Llama 3.3, Mixtral, Gemma), Supabase PostgreSQL, and JWT authentication.\n3. 45-Day Java Study Tracker: A full-stack Spring Boot education roadmap using the Gemini API.";
-        }
-        if (query.includes('skill') || query.includes('tech') || query.includes('language') || query.includes('frontend') || query.includes('backend') || query.includes('database')) {
-            return "Satyam's technical skills include:\n• Languages: Java, Python, JavaScript, SQL\n• Frontend: React.js, Next.js, HTML5, CSS3, Tailwind CSS\n• Backend: Spring Boot, Flask, Node.js, Express.js\n• Databases: PostgreSQL, Supabase, SQLite, MySQL\n• AI: Gemini API, Groq Llama, TF-IDF\n• Tools: Docker, Git, AWS, Vercel, Render";
-        }
-        if (query.includes('contact') || query.includes('email') || query.includes('hire') || query.includes('connect') || query.includes('reach')) {
-            return "You can reach Satyam via email at Satyam.shiv0079@gmail.com. You can also view his work on GitHub (github.com/Satyamshiv0079) or connect on LinkedIn (linkedin.com/in/satyamshiv0079/).";
-        }
-        if (query.includes('education') || query.includes('college') || query.includes('university') || query.includes('degree')) {
-            return "Satyam graduated with a B.Tech in Computer Science and Engineering from Galgotias University (2023-2026). He also holds a Diploma in Mechanical Engineering from LNCT&S (82.1%).";
-        }
-        if (query.includes('intern') || query.includes('experience') || query.includes('virtual')) {
-            return "Satyam completed two virtual internships in 2024 via EduSkills Academy:\n• Google Android Developer Virtual Intern (Java, XML, Material Design)\n• Microchip Embedded Systems Virtual Intern (Embedded C, PIC microcontrollers)";
-        }
-        if (query.includes('certif') || query.includes('award') || query.includes('achieve') || query.includes('leetcode')) {
-            return "Satyam holds certifications in CCNA (Networks), Intro to Generative AI, 8-Bit Microcontrollers, and Deloitte Job Simulations. He has also solved 150+ DSA problems on LeetCode!";
-        }
-        
-        return "I'm NovaMind, Satyam's AI assistant. Ask me anything about his projects, skills, education, internships, or certifications!";
-    }
-
-    function handleChatSend() {
-        const text = chatbotInput.value.trim();
-        if (!text) return;
-
-        appendMessage(text, 'user');
-        chatbotInput.value = '';
-
-        // Typing indicator / small delay simulation
-        setTimeout(() => {
-            const botResponse = generateBotResponse(text);
-            appendMessage(botResponse, 'bot');
-        }, 500);
-    }
-
-    if (chatbotSendBtn && chatbotInput) {
-        chatbotSendBtn.addEventListener('click', handleChatSend);
-        chatbotInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleChatSend();
-        });
-    }
-
-    revealElements.forEach(el => revealObserver.observe(el));
-});
+})(); // end IIFE
